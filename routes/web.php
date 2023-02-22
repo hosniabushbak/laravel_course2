@@ -23,3 +23,29 @@ use App\Http\Controllers\HelloController;
 Route::get('/hello/{name?}', [HelloController::class, 'welcome']);
 Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
 
+//Route::get('/settings/', [HelloController::class, 'settings']);
+//Route::get('/settings/password', [HelloController::class, 'settings']);
+//Route::get('/settings/email', [HelloController::class, 'settings']);
+//Route::get('/settings/inforamtion', [HelloController::class, 'settings']);
+
+
+//old
+//Route::prefix('settings')->group(function () {
+//    Route::get('/', function () {
+//        return 'settings';
+//    });
+//    Route::get('/password', function () {
+//       return 'password';
+//    });
+//    Route::get('/password', [HelloController::class, 'password']);
+//    Route::get('/email', [HelloController::class, 'email']);
+//});
+
+// new group
+Route::group(['prefix'=>'settings'], function () {
+    Route::get('/password', function () {
+       return 'password';
+    });
+});
+
+

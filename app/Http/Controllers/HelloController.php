@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class HelloController extends Controller
@@ -17,8 +18,11 @@ class HelloController extends Controller
     }
 
     public function showText ($first_name=null) {
-        $age = 15;
-        return view('show_text', compact('first_name','age'));
 
+        $customers = Customer::get()->toArray();
+        dd($customers);
+
+        $age = 'amhed';
+        return view('test.show_text', compact('first_name','age'));
     }
 }
