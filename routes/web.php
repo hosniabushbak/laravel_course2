@@ -43,9 +43,10 @@ Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
 
 // new group
 Route::group(['prefix'=>'settings'], function () {
-    Route::get('/password', function () {
-       return 'password';
-    });
+//    Route::get('/password', function () {
+//       return 'password';
+//    });
+    Route::get('/password', [HelloController::class, 'password']);
 });
 
 

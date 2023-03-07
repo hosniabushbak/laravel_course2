@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class HelloController extends Controller
@@ -24,5 +25,11 @@ class HelloController extends Controller
 
         $age = 'amhed';
         return view('test.show_text', compact('first_name','age'));
+    }
+
+    public function password() {
+//        $students = Student::find(1)->toArray();
+        $students = Student::where('id', 1)->first()->toArray();
+        dd($students);
     }
 }
