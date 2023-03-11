@@ -50,3 +50,5 @@ Route::group(['prefix'=>'settings'], function () {
 });
 
 
+Route::get('/home', [HelloController::class, 'home']);
+Route::get('/about', [HelloController::class, 'about']);

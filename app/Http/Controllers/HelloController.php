@@ -32,4 +32,12 @@ class HelloController extends Controller
         $students = Student::where('id', 1)->first()->toArray();
         dd($students);
     }
+
+    public function home () {
+        return view('theme.index');
+    }
+
+    public function about () {
+        return view('theme.about');
+    }
 }
