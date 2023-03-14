@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Student;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class HelloController extends Controller
@@ -38,6 +39,8 @@ class HelloController extends Controller
     }
 
     public function about () {
-        return view('theme.about');
+        dd(1);
+        dd(Supplier::get());
+//        return view('theme.about');
     }
 }
