@@ -19,7 +19,10 @@
 <!-- BOTTOM NAV -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Prixima<span class="dot">.</span></a>
+        <a class="navbar-brand" href="#">
+{{--            {{ ($supplier) ? $supplier->name : 'thaer' }}--}}
+            {{websiteName('thaer')}}
+            <span class="dot">.</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,10 +30,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link" href="#home">{{__('website.home')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
+{{--                    <a class="nav-link" href="{{url('about/asd')}}">About</a>--}}
+                    <a class="nav-link" href="{{route('website.about')}}">About</a>
+                </li>
+                <li class="nav-item">
+                    <ul>
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            <li>
+                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                    {{ $properties['native'] }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#services">Services</a>

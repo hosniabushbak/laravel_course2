@@ -3,8 +3,12 @@
 
 @include('theme.layouts.head')
 
-<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+@if(LaravelLocalization::getCurrentLocale() == 'ar')
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70" dir="rtl">
+@else
+    <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70" dir="ltr">
 
+@endif
 
 @include('theme.layouts.header')
 

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +16,21 @@ use App\Http\Controllers\HelloController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
 
 
-Route::get('/hello/{name?}', [HelloController::class, 'welcome']);
-Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
+    Route::get('/hello/{name?}', [HelloController::class, 'welcome'])->name('welcome');
+    Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
 
 //Route::get('/settings/', [HelloController::class, 'settings']);
 //Route::get('/settings/password', [HelloController::class, 'settings']);
@@ -30,7 +39,7 @@ Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
 
 
 //old
-//Route::prefix('settings')->group(function () {
+//Route::prefix('settings')->middleware('auth')->group(function () {
 //    Route::get('/', function () {
 //        return 'settings';
 //    });
@@ -42,13 +51,46 @@ Route::get('/goat/{first_name}', [HelloController::class, 'showText']);
 //});
 
 // new group
-Route::group(['prefix'=>'settings'], function () {
+//Route::group(['prefix'=>'settings', 'middleware'=>'auth'], function () {
+    Route::group(['prefix'=>'settings'], function () {
 //    Route::get('/password', function () {
 //       return 'password';
 //    });
-    Route::get('/password', [HelloController::class, 'password']);
+        Route::get('/password', [HelloController::class, 'password']);
+        Route::get('/password2', [HelloController::class, 'password']);
+    });
+
+
+    Route::get('/', [HelloController::class, 'home']);
+    Route::get('/aboutsafsafasfasfsafasfasf', [HelloController::class, 'about'])->name('website.about')->middleware('auth');
+    Route::get('/about/asd', [HelloController::class, 'about']);
+//
+//Route::get('/login', function () {
+//    return 'login';
+//})->name('login');
+
+    Auth::routes();
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+    Route::group(['prefix'=>'products', 'as' => 'products.'], function() {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::get('/show/{id}', [ProductController::class, 'show'])->name('show');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
+        Route::post('/update/{id}', [ProductController::class, 'update'])->name('update');
+        Route::post('/destroy/{id}', [ProductController::class, 'destroy'])->name('destroy');
+    });
+
+//    Route::resource('warehouse', WarehouseController::class);
+//    Route::group(['prefix'=>'warehouse', 'as' => 'warehouse.'], function() {
+//
+//    });
+
 });
 
 
-Route::get('/home', [HelloController::class, 'home']);
-Route::get('/about', [HelloController::class, 'about']);
+

@@ -106,8 +106,25 @@
                     <div class="intro">
                         <h6>Our Services</h6>
                         <h1>What We Do?</h1>
-                        <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
-                            roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                        <p class="mx-auto">
+{{--                        @forelse()--}}
+{{--                            --}}
+{{--                        @endforelse--}}
+{{--                        @if($suppliers->isEmpty())--}}
+{{--                        asfafs--}}
+{{--                        @else--}}
+{{--                            @foreach($suppliers as $key => $supplier)--}}
+{{--                                <div>--}}
+{{--                                    {{$supplier->name}} {{$supplier->id}}--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
+{{--                        @endif--}}
+
+                        @forelse($suppliers as $supplier)
+                            safasf
+                        @empty
+                        11
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -115,7 +132,10 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="service">
                         <img src="{{asset('assests/img/icon1.png')}}" alt="">
-                        <h5>Digital Marketing</h5>
+                        @if(auth()->check())
+                            <h5>Hello {{auth()->user()->name}}</h5>
+                            <h5>Hello {{Auth::user()->name}}</h5>
+                        @endif
                         <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
                             classical Latin literature from</p>
                     </div>
