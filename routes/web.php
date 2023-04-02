@@ -83,6 +83,7 @@ Route::group(
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [ProductController::class, 'update'])->name('update');
         Route::post('/destroy/{id}', [ProductController::class, 'destroy'])->name('destroy');
+        Route::get('/emails', [ProductController::class, 'emails'])->name('emails');
     });
 
 //    Route::resource('warehouse', WarehouseController::class);

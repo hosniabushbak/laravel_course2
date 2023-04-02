@@ -41,7 +41,8 @@
     </tr>
     @foreach($products as $product)
     <tr>
-        <td><img src="{{asset('images/'.$product->image)}}" height="50px"></td>
+{{--        <td><img src="{{($product->image) ? asset('images/'.$product->image) : asset('img/default.png')}}" height="50px"></td>--}}
+        <td><img src="{{ $product->getFirstMediaPath() }}" height="50px" /></td>
         <td>{{$product->name}}</td>
         <td>{{$product->price}}</td>
         <td>

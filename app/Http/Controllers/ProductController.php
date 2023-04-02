@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Mail\TestMail;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -25,9 +27,11 @@ class ProductController extends Controller
     }
 
     public function store (StoreProductRequest $request) {
-        $imageExtention = $request->image->extension();
-        $fileName = time().'.'.$imageExtention;
-        $request->image->move('images', $fileName);
+
+
+//        $imageExtention = $request->image->extension();
+//        $fileName = time().'.'.$imageExtention;
+//        $request->image->move('images', $fileName);
 
 
 //        dd(Product::get()->toArray());
@@ -50,9 +54,14 @@ class ProductController extends Controller
 //        }
 
         $dataR = $request->only('name', 'price');
-        $dataR['image'] = $fileName;
+//        $dataR['image'] = $fileName;
 //        $status = $request->product_price;
+
             $product = Product::create($dataR);
+        $product
+            ->addMedia($request->image)
+            ->toMediaCollection();
+
 //        $product = new Product;
 //        $product->name = $name;
 //        $product->price = $price;
@@ -133,5 +142,14 @@ class ProductController extends Controller
 //        $product = Product::find($id);
 //        $product->delete();
         $product = Product::destroy($id);
+    }
+
+    public function emails() {
+        $data = [
+          'name' => 'ahmed',
+          'age' => '22',
+        ];
+
+        Mail::to('abushbakhosni@gmail.com')->cc('abushbakthaer@gmail.com')->send(new TestMail($data));
     }
 }

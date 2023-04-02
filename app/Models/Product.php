@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
+
     protected $table ='products';
     protected $fillable = ['name', 'status', 'price', 'date', 'image'];
 //    protected $hidden = ['created_at', 'updated_at'];
